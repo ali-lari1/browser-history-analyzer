@@ -12,6 +12,21 @@ st.set_page_config(
     layout="wide"
 )
 
+# Tweak metric typography so long values fit
+st.markdown(
+    """
+    <style>
+    div[data-testid="stMetricValue"] > div {
+        font-size: 32px !important;
+    }
+    div[data-testid="stMetricLabel"] > div {
+        font-size: 16px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Helper function to format time based on selected unit
 def format_time(minutes, unit='hours'):
     """Format time in the specified unit"""
