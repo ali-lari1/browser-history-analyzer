@@ -116,6 +116,47 @@ if len(previous_30) > 0 and len(last_30) > 0:
     print(f"Previous {previous_daily:.0f} pages/day")
     print(f"Change: {change_pct:+.0f}%")
 
+# Calculate deduplicated browsing time to avoid counting overlapping tabs
+print("\nCalculating deduplicated browsing time...")
+df['duration_seconds'] = df['visit_duration'] / 1000000
+
+# Cap individual visit durations at 2 hours (7200 seconds)
+# Anything longer is likely a tab left open, not active browsing
+MAX_VISIT_DURATION = 2 * 60 * 60  # 2 hours in seconds
+df['duration_seconds_capped'] = df['duration_seconds'].clip(upper=MAX_VISIT_DURATION)
+df['end_time'] = df['datetime'] + pd.to_timedelta(df['duration_seconds_capped'], unit='s')
+
+print(f"Capped {(df['duration_seconds'] > MAX_VISIT_DURATION).sum()} visits that exceeded 2 hours (likely tabs left open)")
+
+def calculate_deduplicated_time(group):
+    """Merge overlapping time intervals to get actual browsing time"""
+    if len(group) == 0:
+        return pd.Series({'deduplicated_minutes': 0})
+
+    intervals = group[['datetime', 'end_time']].sort_values('datetime').values
+    merged = []
+    current_start, current_end = intervals[0]
+
+    for start, end in intervals[1:]:
+        if start <= current_end:
+            current_end = max(current_end, end)
+        else:
+            merged.append((current_start, current_end))
+            current_start, current_end = start, end
+
+    merged.append((current_start, current_end))
+    # Convert numpy.timedelta64 to seconds
+    total_seconds = sum((pd.Timestamp(end) - pd.Timestamp(start)).total_seconds() for start, end in merged)
+    return pd.Series({'deduplicated_minutes': total_seconds / 60})
+
+# Calculate deduplicated time per day
+daily_dedup = df.groupby('date').apply(calculate_deduplicated_time).reset_index()
+df = df.merge(daily_dedup, on='date', how='left')
+
+print("Daily deduplicated browsing time:")
+for idx, row in daily_dedup.iterrows():
+    print(f"  {row['date']}: {row['deduplicated_minutes']/60:.1f} hours")
+
 # Save categorized data
 df.to_csv('categorized_history.csv', index=False)
 print("\nCategorized browsing data saved to 'categorized_history.csv'")
