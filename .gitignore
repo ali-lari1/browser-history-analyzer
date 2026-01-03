@@ -4,3 +4,4 @@ clustered_history.csv
 categorized_history.csv
 .venv/
 .vscode
+.DS_Store
