@@ -1,11 +1,10 @@
 import sqlite3
 import pandas as pd
 from datetime import datetime, timedelta
-from collections import Counter
 from urllib.parse import urlparse
 
-# Connect to Brave history
-conn = sqlite3.connect('brave_history.db')
+# Connect to Browser history
+conn = sqlite3.connect('browser_history.db')
 
 # Extract ALL history with timestamps
 query = """

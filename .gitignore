@@ -3,3 +3,4 @@ full_history.csv
 clustered_history.csv
 categorized_history.csv
 .venv/
+.vscode

@@ -21,21 +21,48 @@ df['normalized_domain'] = clustered_df['normalized_domain']
 
 # Category mapping
 CATEGORIES = {
-    'productivity': ['github', 'stackoverflow', 'docs.', 'notion', 'linear', 'jira', 'trello', 
-                     'asana', 'monday', 'confluence', 'figma', 'miro', 'coda'],
-    'learning': ['coursera', 'udemy', 'edx', 'khanacademy', 'youtube.com/watch', 'medium', 
-                 'towardsdatascience', 'arxiv', 'scholar.google', 'wikipedia'],
-    'social': ['twitter', 'x.com', 'facebook', 'instagram', 'linkedin', 'reddit', 
-               'discord', 'slack', 'whatsapp', 'telegram'],
-    'entertainment': ['youtube.com', 'netflix', 'spotify', 'twitch', 'tiktok', 
-                      'hulu', 'disneyplus', 'primevideo'],
-    'news': ['nytimes', 'wsj', 'bbc', 'cnn', 'reuters', 'bloomberg', 'theguardian',
-             'techcrunch', 'hackernews', 'news.ycombinator'],
-    'shopping': ['amazon', 'ebay', 'etsy', 'walmart', 'bestbuy', 'target', 'aliexpress'],
-    'ai_ml': ['openai', 'anthropic', 'claude.ai', 'chatgpt', 'huggingface', 'kaggle',
-              'paperswithcode', 'deepmind', 'stability'],
-    'finance': ['yahoo.finance', 'tradingview', 'investing.com', 'marketwatch', 
-                'coinbase', 'binance', 'robinhood']
+    'productivity': [
+        'github', 'gitlab', 'bitbucket', 'stackoverflow', 'docs.', 'doc.google',
+        'drive.google', 'notion', 'linear', 'jira', 'trello', 'asana', 'monday',
+        'confluence', 'figma', 'miro', 'coda', 'slack', 'zoom', 'meet.google',
+        'calendar.google', 'outlook.office', 'office.com', 'sharepoint', 'dropbox',
+        'onedrive', 'box.com', 'airtable'
+    ],
+    'learning': [
+        'coursera', 'udemy', 'edx', 'khanacademy', 'youtube.com/watch', 'medium',
+        'towardsdatascience', 'arxiv', 'scholar.google', 'wikipedia', 'brilliant',
+        'pluralsight', 'datacamp', 'codecademy', 'freecodecamp', 'udacity',
+        'stackexchange', 'stackoverflow.com/questions', 'leetcode', 'hackerrank'
+    ],
+    'social': [
+        'twitter', 'x.com', 'facebook', 'instagram', 'linkedin', 'reddit',
+        'discord', 'whatsapp', 'telegram', 'snapchat', 't.me', 'messenger',
+        'threads.net', 'pinterest'
+    ],
+    'entertainment': [
+        'youtube.com', 'netflix', 'spotify', 'twitch', 'tiktok', 'hulu',
+        'disneyplus', 'primevideo', 'hbomax', 'max.com', 'soundcloud', 'pandora',
+        'applemusic'
+    ],
+    'news': [
+        'nytimes', 'wsj', 'bbc', 'cnn', 'reuters', 'bloomberg', 'theguardian',
+        'techcrunch', 'hackernews', 'news.ycombinator', 'theverge', 'wired',
+        'washingtonpost', 'ft.com', 'economist', 'apnews'
+    ],
+    'shopping': [
+        'amazon', 'ebay', 'etsy', 'walmart', 'bestbuy', 'target', 'aliexpress',
+        'costco', 'homedepot', 'lowes', 'ikea', 'wayfair', 'shopify', 'chewy'
+    ],
+    'ai_ml': [
+        'openai', 'anthropic', 'claude.ai', 'chatgpt', 'huggingface', 'kaggle',
+        'paperswithcode', 'deepmind', 'stability', 'replicate', 'perplexity',
+        'cohere', 'vertexai', 'colab.research'
+    ],
+    'finance': [
+        'yahoo.finance', 'finance.yahoo', 'tradingview', 'investing.com',
+        'marketwatch', 'coinbase', 'binance', 'robinhood', 'etrade', 'fidelity',
+        'schwab', 'mint.intuit', 'stripe', 'paypal', 'bankofamerica', 'chase.com'
+    ]
 }
 
 def categorize_domain(domain):

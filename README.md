@@ -20,6 +20,13 @@ The analyzer uses smart algorithms to provide realistic browsing time estimates:
 
 ## Installation
 
+1) Install Python 3.8+ (already included on most systems).
+2) Get the code:
+```bash
+git clone https://github.com/ali-lari1/browser-history-analyzer.git
+cd browser-history-analyzer
+```
+3) Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
@@ -28,9 +35,27 @@ pip install -r requirements.txt
 
 ### 1. Extract Browser History
 
+Point the extractor to your browser’s history DB (or copy it into this folder and rename it).
+
+- **Chrome (macOS)**: `~/Library/Application Support/Google/Chrome/Default/History`
+- **Chrome (Windows)**: `%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\History`
+- **Chrome (Linux)**: `~/.config/google-chrome/Default/History`
+- **Brave (macOS)**: `~/Library/Application Support/BraveSoftware/Brave-Browser/Default/History`
+- **Brave (Windows)**: `%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\Default\\History`
+- **Edge (Windows)**: `%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default\\History`
+
+Two options:
+1) **Copy the file** into the repo and name it `browser_history.db` (default expected by `extraction_script.py`), then run:
+
 ```bash
 python extraction_script.py
 ```
+
+2) **Or update the path** in `extraction_script.py`:
+```python
+conn = sqlite3.connect("/absolute/path/to/your/History")
+```
+Close your browser first or copy the file elsewhere; the live DB is locked while the browser is running.
 
 This creates `full_history.csv` with your browsing data.
 
@@ -88,7 +113,7 @@ The dashboard will open in your browser at `http://localhost:8501`.
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.8+
 - pandas
 - streamlit
 - plotly

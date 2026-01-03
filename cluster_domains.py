@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
-from collections import Counter
 from sklearn.preprocessing import MinMaxScaler
 from scipy.sparse import hstack, csr_matrix
 
